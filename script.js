@@ -7,12 +7,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const existingButton = document.getElementById("existing");
             
             // Check if credentials exist in localStorage
-            const savedUsername = localStorage.getItem("username");
-            const savedPassword = localStorage.getItem("password");
-            
-            if (savedUsername && savedPassword) {
-                existingButton.style.display = "block";
+            function updateExistingUserButton() {
+                const savedUsername = localStorage.getItem("username");
+                const savedPassword = localStorage.getItem("password");
+                console.log("Saved credentials: ", savedUsername, savedPassword);
+                
+                if (savedUsername && savedPassword) {
+                    existingButton.style.display = "block";
+                } else {
+                    existingButton.style.display = "none";
+                }
             }
+            
+            updateExistingUserButton();
             
             document.getElementById("login-form").addEventListener("submit", (event) => {
                 event.preventDefault();
@@ -28,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     localStorage.removeItem("password");
                 }
                 
-                existingButton.style.display = localStorage.getItem("username") ? "block" : "none";
+                updateExistingUserButton();
             });
             
             existingButton.addEventListener("click", () => {
